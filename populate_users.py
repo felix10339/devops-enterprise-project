@@ -22,6 +22,7 @@ def add_user():
     email = data.get("email")
     if not name or not email:
         return jsonify({"error": "Nom et email requis"}), 400
+    # Vérifie si l'utilisateur existe déjà
     if users_collection.count_documents({"email": email}) > 0:
         return jsonify({"error": "Email déjà utilisé"}), 400
     users_collection.insert_one({"name": name, "email": email})
